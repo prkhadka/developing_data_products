@@ -1,0 +1,81 @@
+Presentation on Economic Regression analysis Shiny App by Prakash
+========================================================
+author: Prakash Khadka
+date: 25/05/2016
+autosize: true
+transition: linear
+
+
+Description
+========================================================
+
+
+<font size="6">
+The following presentation works on the longley data set which has been used for creating a shiny app for visualizing the longely data of economic regression.
+
+The shiny application is available here: <https://prkhadka.shinyapps.io/Developing_Data_Products/>
+
+This application takes in the macroeconomic data set and plots the regression model 
+using two predictors, one of which is the no of employed people for yeas from 1954 to 1962 versus any predictor selected by the user.
+
+It also contains another interactive graph which plots comparison amongst some variables.
+</font>
+
+Shiny Snapshot
+========================================================
+type: prompt
+
+<div class="row">
+  <div class="col-md-8" align="center">
+  <p class="text-primary">Attached is the snap shot of my shiny app.</p>
+  <img src="snapshot.png" alt="Regrssion Chart"/>
+  
+  </div>
+  
+</div>
+
+R expression Code and Evaluator
+========================================================
+type: prompt
+
+<font size="5">
+Below is the embedded r expression code, which is evaluated in the pitching
+
+```{r setup, cache = F, echo=FALSE}
+# Required package and options for rCharts
+require(knitr)
+opts_chunk$set(results = "asis", comment = NA, tidy = F)
+```
+```{r create, tidy = F}
+# rCharts package loading, it needs to be isolated from other packages
+library(rCharts)
+```
+```{r}
+# Other package for data transformations
+library(data.table)
+# Load the dataset
+data <- longley
+
+# Create the Scatter chart
+ myChart<-nPlot(Employed~Unemployed, group ='Employed',data=data
+                   , type = "multiBarChart")
+  #Display customized tool tip 
+  myChart$chart(tooltipContent = "#! function(key, x, y, e){
+                  return '<h2>' + e.point.Employed + '</h2>'} !#")
+  myChart$xAxis(axisLabel='No of Unemployed people')
+  myChart$yAxis(axisLabel='No of employed people')
+```
+</font>
+
+
+Chart Generation
+========================================================
+
+<font size="6">The above code generated the chart below .
+
+```{r}
+myChart$show('iframesrc', cdn = TRUE) # Display the rchart through r expression evaluation
+```
+
+<p align="center">Devloped by Prakash Khadka</p>
+</font>
